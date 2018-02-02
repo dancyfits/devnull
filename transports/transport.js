@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
 /**!
  * dev/null
  * @copyright (c) 2013 Observe.it (http://observe.it) <opensource@observe.it>
  * MIT Licensed
  */
-var EventEmitter = require('events').EventEmitter;
+var EventEmitter = require("events");
 
 /**
  * Strict type checking.
@@ -27,19 +27,20 @@ function type(prop) {
  * @param {Object} options
  * @api private
  */
-var Transport = module.exports = function transport(logger, options) {
-  var self = this
-    , key;
+var Transport = (module.exports = function transport(logger, options) {
+  var self = this,
+    key;
 
   options = options || {};
-  this.name = 'transport';
+  this.name = "transport";
 
   // override the defaults, but not the methods and they should also be the
   // exact same type
   for (key in options) {
-    if (key in this
-      && type(this[key]) !== 'function'
-      && type(this[key]) === type(options[key])
+    if (
+      key in this &&
+      type(this[key]) !== "function" &&
+      type(this[key]) === type(options[key])
     ) {
       this[key] = options[key];
     }
@@ -54,7 +55,7 @@ var Transport = module.exports = function transport(logger, options) {
       self.initialize.call(self, options);
     });
   }
-};
+});
 
 Transport.prototype.__proto__ = EventEmitter.prototype;
 

@@ -1,6 +1,6 @@
 # dev/null because logging to dev/null is webscale
 
-Current build status: [![BuildStatus](https://secure.travis-ci.org/observing/devnull.png?branch=master)](http://travis-ci.org/observing/devnull)
+This is a fork of [observing/devnull](https://github.com/observing/devnull) to make a working version available to npm. I take no credit for it whatsoever. If you are the original dev, please contact me! I've tried various email addresses with no response and the issue has been longstanding on the original repo. I can get rid of this or do whatever you want me to do with it.
 
 ### Introduction
 
@@ -52,12 +52,12 @@ If you don't have NPM installed on your system you can get it at
 You can either initialize the default logger:
 
 ```js
-var Logger = require('devnull')
-  , logger = new Logger();
+var Logger = require("devnull"),
+  logger = new Logger();
 
-logger.log('hello world');
-logger.info('pew pew');
-logger.error('oh noes, something goes terribly wrong');
+logger.log("hello world");
+logger.info("pew pew");
+logger.error("oh noes, something goes terribly wrong");
 ```
 
 Or configure a customized instance using the options argument:
@@ -72,23 +72,22 @@ logger.log('hello world');
 
 The following options are available for configuring your customized instance:
 
-- **env** either development of production. Default is based on the isAtty check
+* **env** either development of production. Default is based on the isAtty check
   of the process.stdout.
-- **level** Only log statements that are less than this level will be logged.
+* **level** Only log statements that are less than this level will be logged.
   This allows you to filter out debug and log statements in production for
   example. Default is 8.
-- **notification** At what log level should we start emitting events? Default is
-  1.
-- **namespacing** At what log level should we start generating namespaces (uses
+* **notification** At what log level should we start emitting events? Default is 1.
+* **namespacing** At what log level should we start generating namespaces (uses
   callsite based stacktraces)? Defaults to 8.
-- **timestamp** Should we prepend a timestamp to the log message? Logging is
+* **timestamp** Should we prepend a timestamp to the log message? Logging is
   always done asynchronously so it might be that log messages do not appear in
   order. A timestamp helps you identify the order of the logs. Default is true.
-- **pattern** The pattern for the timestamp. Everybody prefers it's own pattern.
+* **pattern** The pattern for the timestamp. Everybody prefers it's own pattern.
   The pattern is based around the great [140bytes date
   entry](https://gist.github.com/1005948) but also allows functions to be called
   directly. Default is the util.log format that Node.js adopted.
-- **base** Should the logger be configured with the base transport (log to
+* **base** Should the logger be configured with the base transport (log to
   process.stdout)? Default is true.
 
 ### .configure(env, fn)
@@ -104,21 +103,21 @@ _fn_ (function) callback
 #### Example
 
 ```js
-var Logger = require('devnull')
-  , logger = new Logger();
+var Logger = require("devnull"),
+  logger = new Logger();
 
 // runs always
-logger.configure(function () {
-  logger.log('running on the things');
+logger.configure(function() {
+  logger.log("running on the things");
 });
 
 // only runs in production
-logger.configure('production', function () {
-  logger.log('running in production');
+logger.configure("production", function() {
+  logger.log("running in production");
 });
 
-logger.configure('development', function () {
-  logger.log('running in development');
+logger.configure("development", function() {
+  logger.log("running in development");
 });
 ```
 
@@ -170,9 +169,9 @@ _Transport_ (Transport) a transport
 #### Example
 
 ```js
-var Logger = require('devnull')
-  , logger = new Logger({ base: false })
-  , transports = require('devnull/transports');
+var Logger = require("devnull"),
+  logger = new Logger({ base: false }),
+  transports = require("devnull/transports");
 
 logger.use(transports.stream);
 logger.remove(transports.stream);
@@ -186,13 +185,13 @@ options. In addition to listening to the log message you can also listen to the
 events of the transports. These are prefixed with `transport:`. The following
 events are emitted:
 
-- All the types (alert, critical etc)
+* All the types (alert, critical etc)
 
 And the transport events:
 
-- `transport:failed(err)` transport failed to initialize
-- `transport:error(err, log)` transport failed to write the log due to an error
-- `transport:write(log)` transport written the log message
+* `transport:failed(err)` transport failed to initialize
+* `transport:error(err, log)` transport failed to write the log due to an error
+* `transport:write(log)` transport written the log message
 
 #### Arguments
 
@@ -204,7 +203,7 @@ _fn_ (function) callback, receives _args_ (array), _stack_ (stack/callsite)
 ```
 var Logger = require('devnull')
   , logger = new Logger();
-  
+
 logger.on('error', function (args, stack) {
  // args = foo bar, 1
  // stack = stack trace that we used to generate the namespace
@@ -226,10 +225,10 @@ _env_ (string) file
 #### Example
 
 ```js
-var Logger = require('devnull')
-  , logger = new Logger();
+var Logger = require("devnull"),
+  logger = new Logger();
 
-logger.ignore('my_other_module.js');
+logger.ignore("my_other_module.js");
 ```
 
 ### .unignore(file)
@@ -243,11 +242,11 @@ _env_ (string) file
 #### Example
 
 ```js
-var Logger = require('devnull')
-  , logger = new Logger();
+var Logger = require("devnull"),
+  logger = new Logger();
 
-logger.ignore('my_other_module.js');
-logger.unignore('my_other_module.js');
+logger.ignore("my_other_module.js");
+logger.unignore("my_other_module.js");
 ```
 
 ### Logging methods and levels
@@ -255,12 +254,12 @@ logger.unignore('my_other_module.js');
 The logger has the following methods available for logging. The (<number>) is
 the log level.
 
-- alert (0)
-- critical (1)
-- error (2)
-- warning (3)
-- metric (4)
-- notice (5)
-- info (6)
-- log (7)
-- debug (8)
+* alert (0)
+* critical (1)
+* error (2)
+* warning (3)
+* metric (4)
+* notice (5)
+* info (6)
+* log (7)
+* debug (8)
